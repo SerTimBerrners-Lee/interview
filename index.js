@@ -21,6 +21,17 @@ async function getCars() {
   return results;
 }
 
+function cardComponent(src, description) {
+  return `
+    <div class="card" style="width: 18rem;">
+      <img src="${src}" class="card-img-top" alt="${description}">
+      <div class="card-body">
+        <p class="card-text">${description}</p>
+      </div>
+    </div>
+  `;
+}
+
 function toPage(type) {
   if (type == "next") {
     page++;
@@ -29,36 +40,24 @@ function toPage(type) {
   }
 
   getCars().then((cars) => {
-    const car_item = document.querySelectorAll(".car_item");
+    const car_item = document.querySelectorAll("#card-main>.col");
     if (car_item.length) {
       car_item.forEach((car) => car.remove());
     }
 
     for (const car of cars) {
       const div = document.createElement("div");
-      div.className = "car_item";
+      div.className = "col";
 
-      div.innerText = car.alt_description;
-      const img = document.createElement("img");
-      img.src = car.urls.small;
+      div.innerHTML = cardComponent(car.urls.small, car.alt_description);
 
-      const description = document.createElement("paragraf");
-      description.innerText = car.alt_description;
-
-      div.appendChild(img);
-      div.appendChild(description);
-
-      document.getElementById("app").appendChild(div);
+      document.getElementById("card-main").appendChild(div);
     }
   });
 }
 
 toPage("next");
 
-document.getElementById("app").innerHTML += `
-<button id="prev" type="button" class="btn btn-secondary btn-lg">Prev</button>
-<button id="next" type="button" class="btn btn-primary btn-lg">Next</button>
-`;
 setTimeout(() => {
   document.getElementById("prev").onclick = function () {
     toPage("prev");
