@@ -1,0 +1,16 @@
+{
+  "name": "interview",
+  "version": "1.0.0",
+  "description": "My fist npm project!",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "D.A.Perov",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "scss": "^0.2.4"
+  }
+}
