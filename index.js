@@ -1,37 +1,9 @@
-const url = "https://api.unsplash.com/search/photos";
-const access_key = "RZEIOVfPhS7vMLkFdd2TSKGFBS4o9_FmcV1Nje3FSjw";
+import { getCars } from "./api/cars.js";
+import { cardComponent } from "./components/card.js";
+
+console.log(getCars);
 
 let page = 0;
-async function getCars() {
-  const getCarsUrl =
-    `${url}?` +
-    new URLSearchParams({
-      page: page,
-      query: "car",
-      client_id: access_key,
-    }).toString();
-
-  const response = await fetch(getCarsUrl, {
-    mode: "cors",
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
-  const { results } = await response.json();
-  return results;
-}
-
-function cardComponent(src, description) {
-  return `
-    <div class="card" style="width: 18rem;">
-      <img src="${src}" class="card-img-top" alt="${description}">
-      <div class="card-body">
-        <p class="card-text">${description}</p>
-      </div>
-    </div>
-  `;
-}
-
 function toPage(type) {
   if (type == "next") {
     page++;
@@ -39,7 +11,7 @@ function toPage(type) {
     page = page <= 0 ? 0 : page - 1;
   }
 
-  getCars().then((cars) => {
+  getCars(page).then((cars) => {
     const car_item = document.querySelectorAll("#card-main>.col");
     if (car_item.length) {
       car_item.forEach((car) => car.remove());
