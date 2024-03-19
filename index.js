@@ -1,7 +1,5 @@
-import { getCars } from "./api/cars.js";
 import { cardComponent } from "./components/card.js";
-
-console.log(getCars);
+import CarsApi from "./api/cars.js";
 
 let page = 0;
 function toPage(type) {
@@ -11,7 +9,7 @@ function toPage(type) {
     page = page <= 0 ? 0 : page - 1;
   }
 
-  getCars(page).then((cars) => {
+  CarsApi.getCars(page).then((cars) => {
     const car_item = document.querySelectorAll("#card-main>.col");
     if (car_item.length) {
       car_item.forEach((car) => car.remove());
